@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class User {
 	public String username;
-	public String userID;
+	public int userID;
 	public String hash = "";
 	public String passwordHash;
 	
@@ -22,10 +22,10 @@ public class User {
 	public  void setUserID()
 	{
 
-		
+		//userID++;		
 	}
 	
-	public String getUserID()
+	public int getUserID()
 	{
 		return userID;
 	}
@@ -36,6 +36,7 @@ public class User {
 		Scanner input = new Scanner(System.in);
 		System.out.print("Please create your username");
 		username = input.nextLine();
+		userID++;
 	}
 	public String getUsername()
 	{
