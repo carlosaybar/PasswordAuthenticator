@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Authenticator {
@@ -23,7 +24,7 @@ public class Authenticator {
 		usr.setPasswordHash();
 		usr.getPasswordHash();
 		FileWriter fileWriter = new FileWriter(credentialsPath , true);
-		fileWriter.append(usr.username + "," + usr.userID + "," + usr.passwordHash);
+		fileWriter.append(usr.userID + "," + usr.username + "," + usr.passwordHash);
 		fileWriter.append("\n");
 		fileWriter.close();
 		loadUsers(credentialsPath);
@@ -74,7 +75,7 @@ public class Authenticator {
 				usr.setPasswordHash();
 				usr.getPasswordHash();
 				FileWriter fileWriter = new FileWriter(credentialsPath , true);
-				fileWriter.append(usr.username + "," + usr.userID + "," + usr.passwordHash);
+				fileWriter.append(usr.userID + "," + usr.username + "," + usr.passwordHash);
 				fileWriter.append("\n");
 				fileWriter.close();
 				isValid = true;
@@ -95,80 +96,77 @@ public class Authenticator {
 		Scanner input = new Scanner(System.in);
 		System.out.println("type the user to be removed: ");
 		searchUser = input.nextLine();
-		ArrayList<String>users = new ArrayList<String>();
 
-	/*	
-		FileWriter fileWriter = new FileWriter(credentialsPath , true);
-		Scanner file = new Scanner (new File(credentialsPath));
-		while(file.hasNextLine())
-		{
-			credentials.add(file.nextLine());
-		}
-	
-		file.close(); // closes the file	*/
-		
+
+		/*
+	FileWriter fileWriter = new FileWriter(credentialsPath , true);
+	Scanner file = new Scanner (new File(credentialsPath));
+	while(file.hasNextLine())
+	{
+	credentials.add(file.nextLine());
+	}
+
+	file.close(); // closes the file */
+
 		//System.out.println("before removing");
 		//for(int i = 0; i < credentials.size(); i++)
 		//{
-			//users.add(credentials.get(i));
-			//System.out.println(users.get(i));
-		
-		
+		//users.add(credentials.get(i));
+		//System.out.println(users.get(i));
+
+
 		BufferedReader br = new BufferedReader(new FileReader(credentialsPath));
 		String line;
-		while(br.readLine() != null)
-		{
-			line = br.readLine();
-			String [] values = line.split(",");
-			String found = null;
-			
-			for(int i = 0; i < values.length; i++)
-			{
-				if(values[i].contentEquals(searchUser))
-				{
-					found = line;
-					System.out.println("remove this" + found);
-					break;
-				}
-			}
-			
-		}
-		
-		
-		
-		/*
-		System.out.println("after removing");
-		for(int i = 0; i < users.size(); i++)
-		{
-			if(users.contains(searchUser));
-			{
-				users.remove(i);
-				System.out.println("this was delete" + users.get(i));
-			}
 
-			break;
-		}
-		
-		for(int i = 0; i < users.size(); i++)
-		{
-			System.out.println(users.get(i));
-
-		}
-/*
-		//deleting from the csv
 		FileWriter fileWriter = new FileWriter(credentialsPath , true);
-		Scanner file = new Scanner(new File(credentialsPath));
-		for(int i = 0; i < users.size(); i++)
+		Scanner file = new Scanner (new File(credentialsPath));
+		int loadUsers = 0;
+		while(file.hasNextLine())
 		{
-			fileWriter.write(users.get(i));
-			fileWriter.append("\n");
-			
+			credentials.add(file.nextLine());
+			loadUsers++;
 		}
-		fileWriter.close();
-		*/
-		
-		return 0;
-		
+
+		file.close(); // closes the file
+
+
+		ArrayList<String>users = new ArrayList<String>();
+		users.addAll(credentials);
+
+
+		System.out.println("this will removed");
+		for(int z = 0; z < users.size(); z++)
+		{
+			line = users.get(z);
+			String [] values = line.split(",");
+			if(values[z].contentEquals(searchUser))
+			{
+				System.out.println(users.get(z));
+				users.remove(z);
+			}
+			z++;
+
+		}
+		System.out.println("this is after removing");
+		for(int x = 0; x < users.size(); x++)
+		{
+
+			System.out.println(users.get(x));
+		}
+	/*
+	//deleting from the csv
+	FileWriter fileWriter = new FileWriter(credentialsPath , true);
+	Scanner file = new Scanner(new File(credentialsPath));
+	for(int i = 0; i < users.size(); i++)
+	{
+	fileWriter.write(users.get(i));
+	fileWriter.append("\n");
+
+	}
+	fileWriter.close();
+	*/
+	return 0;
+
 	}
 	
 	public static boolean isUserValid() throws IOException
@@ -178,11 +176,17 @@ public class Authenticator {
 		System.out.println("type the username: ");
 		inputUsername = input.nextLine();
 		
-		boolean isUsername = false;
+		String inputPassword;
+		System.out.println("type your password: ");
+		inputPassword = input.nextLine();
+		
+		boolean isValid = false;
 		BufferedReader br = new BufferedReader(new FileReader(credentialsPath));
 		String line;
+		
 		while(br.readLine() != null)
 		{
+
 			line = br.readLine();
 			String [] values = line.split(",");
 			String found = null;
@@ -192,28 +196,42 @@ public class Authenticator {
 				if(values[i].contentEquals(inputUsername))
 				{
 					found = line;
-
-					isUsername = true;
-					System.out.println("this is what you searched for" + found);
+					//System.out.println("remove this" + found);
+					isValid = true;
 					break;
+				
 				}
+			
+				break;
 			}
 			
+			for(int i = 0; i < values.length; i++)
+			{
+				if(values[i].startsWith(inputPassword))
+				{
+					found = line;
+					//System.out.println("remove this" + found);
+					isValid = true;
+					break;
+				}
+			
+				break;
+			}
+			
+
 		}
-		/*
-		FileWriter fileWriter = new FileWriter(credentialsPath , true);
-		Scanner file = new Scanner (new File(credentialsPath));
-		int loadUsers = 0;
-		while(file.hasNextLine())
+		
+		if(!isValid)
 		{
-			credentials.add(file.nextLine());
+			System.out.println("access granted");
 		}
+		else
+		{
+			System.out.println("access denied");
+		}
+
 		
-		file.close(); 
-		*/
-		
-		
-		return true;	
+		return isValid;	
 	}
 	
 }
