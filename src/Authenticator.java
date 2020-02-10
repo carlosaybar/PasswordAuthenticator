@@ -1,3 +1,15 @@
+/*
+ Carlos Aybar
+ Advanced Java
+ 02/10/20
+ This program keeps store a list of users in a csv file
+ you can add as many users as you want, at any time
+ you can also delete as many users as you want
+ if you want to sign in, type the username and password and this program
+ will check the credentials stored in the csv to validate them.
+ */
+
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,11 +20,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Missions
+ *
+ */
 public class Authenticator {
 	static ArrayList<String>credentials = new ArrayList<String>();
 	static String credentialsPath = "credentials.csv";
 	
 
+	/**
+	 * 
+	 * @param args
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		User usr = new User();
 		usr.setUsername();
@@ -34,7 +57,13 @@ public class Authenticator {
 	}
 
 	
-	
+	/**
+	 * 
+	 * @param credentialsPath
+	 * @return
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
 	public static int loadUsers(String credentialsPath) throws IOException, FileNotFoundException
 	{
 		credentialsPath = ("credentials.csv");
@@ -53,6 +82,11 @@ public class Authenticator {
 	}
 	
 	
+	/**
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public static int addUser() throws IOException
 	{
 		User usr = new User();
@@ -90,29 +124,17 @@ public class Authenticator {
 		
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public static int removeUser() throws IOException
 	{
 		String searchUser;
 		Scanner input = new Scanner(System.in);
 		System.out.println("type the user to be removed: ");
 		searchUser = input.nextLine();
-
-
-		/*
-	FileWriter fileWriter = new FileWriter(credentialsPath , true);
-	Scanner file = new Scanner (new File(credentialsPath));
-	while(file.hasNextLine())
-	{
-	credentials.add(file.nextLine());
-	}
-
-	file.close(); // closes the file */
-
-		//System.out.println("before removing");
-		//for(int i = 0; i < credentials.size(); i++)
-		//{
-		//users.add(credentials.get(i));
-		//System.out.println(users.get(i));
 
 
 		BufferedReader br = new BufferedReader(new FileReader(credentialsPath));
@@ -132,8 +154,6 @@ public class Authenticator {
 
 		ArrayList<String>users = new ArrayList<String>();
 		users.addAll(credentials);
-
-
 		System.out.println("this will removed");
 		for(int z = 0; z < users.size(); z++)
 		{
@@ -144,7 +164,6 @@ public class Authenticator {
 				System.out.println(users.get(z));
 				users.remove(z);
 			}
-			z++;
 
 		}
 		System.out.println("this is after removing");
@@ -169,6 +188,11 @@ public class Authenticator {
 
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public static boolean isUserValid() throws IOException
 	{
 		String inputUsername;
