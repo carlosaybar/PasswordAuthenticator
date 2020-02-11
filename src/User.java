@@ -42,7 +42,8 @@ public class User {
 	public  void setUserID()
 	{
 
-		userID++;		
+	     Random random = new Random();
+	     userID = random.nextInt(100);
 	}
 	
 	/**
@@ -62,7 +63,6 @@ public class User {
 		Scanner input = new Scanner(System.in);
 		System.out.print("Please create your username");
 		username = input.nextLine();
-		userID++;
 	}
 	
 	/**

@@ -105,6 +105,8 @@ public class Authenticator {
 			System.out.println("Enter a 1 if you wish to add a new user and anything else if you dont: ");
 			answer = input.nextInt();
 			
+
+			
 			if(answer == 1)
 			{
 				usr.setUsername();
@@ -164,7 +166,7 @@ public class Authenticator {
 		file.close(); // closes the file
 
 
-		System.out.println("this will removed");
+
 		for(int z = 0; z < users.size() ; z++)
 		{
 			line = users.get(z);
@@ -173,9 +175,8 @@ public class Authenticator {
 			String [] values = line.split(","); //breaks the line into ID, username, and passwordhash and stores it in the values array
 			if(values[z].contentEquals(searchUser)) //checks to see if the username the user typed is contained in the new array
 			{
-				System.out.println(users.get(z));
+
 				users.remove(z); //if the username is contained in the array, the line where the for loop is at in the arraylist will be deleted
-				System.out.println(users.get(z));
 			}
 			else
 			{
@@ -186,7 +187,7 @@ public class Authenticator {
 			//z++;
 			//break;
 		}
-		System.out.println("this is after removing");
+		System.out.println("updated list after removing");
 		for(int x = 0; x < users.size(); x++)
 		{
 
