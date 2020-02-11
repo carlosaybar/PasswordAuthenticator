@@ -16,8 +16,9 @@ import java.util.Scanner;
 
 
 /**
- * 
- * @author Missions
+ * this java class gets and sets all the information/credentials
+ * for every user
+ * @author Carlos Aybar
  *
  */
 public class User {
@@ -36,17 +37,17 @@ public class User {
 	*/
 
 	/**
-	 * 
+	 * everytime this method is called, the userID will be increased by one
 	 */
 	public  void setUserID()
 	{
 
-		//userID++;		
+		userID++;		
 	}
 	
 	/**
 	 * 
-	 * @return
+	 * @return the userID
 	 */
 	public int getUserID()
 	{
@@ -54,7 +55,7 @@ public class User {
 	}
 	
 	/**
-	 * 
+	 * this method asks the user to input a username
 	 */
 	public  void setUsername()
 	{
@@ -66,7 +67,7 @@ public class User {
 	
 	/**
 	 * 
-	 * @return
+	 * @return wherever is stored in the variable username
 	 */
 	public String getUsername()
 	{
@@ -74,7 +75,9 @@ public class User {
 	}
 	
 	/**
-	 * 
+	 * this method generates a random salt
+	 * it stores in the variable hash, which
+	 * will be later appended to the password
 	 */
 	public void setSalt()
 	{
@@ -99,13 +102,17 @@ public class User {
 
 	/**
 	 * 
-	 * @return
+	 * @return returns the salt, stored in the variable hash
 	 */
 	public String getSalt()
 	{
 		return hash;
 	}
 	
+	/**
+	 * concats the hash(salt) with the inputed password
+	 * and stores it in the variable passwordHash
+	 */
 	public  void setPasswordHash()
 	{
 		Scanner input = new Scanner(System.in);
@@ -126,7 +133,7 @@ public class User {
 	
 	/**
 	 * 
-	 * @return
+	 * @return retuns the passwordHash
 	 */
 	public int getPasswordHash()
 	{

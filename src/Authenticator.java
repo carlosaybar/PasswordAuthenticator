@@ -21,8 +21,9 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * 
- * @author Missions
+ * this is the main java class and calls all the methods from the user class
+ * as well as the methods in this class
+ * @author Carlos Aybar
  *
  */
 public class Authenticator {
@@ -31,10 +32,13 @@ public class Authenticator {
 	
 
 	/**
-	 * 
-	 * @param args
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * this method calls all the functions from the User class
+	 * it then stores the information in the csv file
+	 * asks the user t sign in
+	 * asks to add another user'
+	 * asks to remove an user
+	 * @throws FileNotFoundException in case the file is not found
+	 * @throws IOException input mismatch exception
 	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		User usr = new User();
@@ -58,11 +62,12 @@ public class Authenticator {
 
 	
 	/**
-	 * 
-	 * @param credentialsPath
-	 * @return
-	 * @throws IOException
-	 * @throws FileNotFoundException
+	 * this method reds all the credentials from the csv file
+	 * and stores in the credentials arrayList
+	 * @param credentialsPath the path to the csv file
+	 * @return returns the number of users in the csv
+	 * @throws IOException handles input and output exceptions
+	 * @throws FileNotFoundException handle cases where the file is not found
 	 */
 	public static int loadUsers(String credentialsPath) throws IOException, FileNotFoundException
 	{
@@ -83,9 +88,11 @@ public class Authenticator {
 	
 	
 	/**
-	 * 
-	 * @return
-	 * @throws IOException
+	 * asks the user whehter he/she wants to add an user to the csv
+	 * if the user types in a 1, then it gets all the credentials for the new
+	 * user and stores it inn the csv, else it exits
+	 * @return returns true/false depending on the users decision
+	 * @throws IOException handles input mismatch exceptions
 	 */
 	public static int addUser() throws IOException
 	{
@@ -125,9 +132,10 @@ public class Authenticator {
 	}
 	
 	/**
-	 * 
-	 * @return
-	 * @throws IOException
+	 * asks the user to type the username of the user he wants to delete
+	 * it searchs through the arraylist and if found, then it deletes it
+	 * @return returns the user removed
+	 * @throws IOException handles any input and output problems
 	 */
 	public static int removeUser() throws IOException
 	{
@@ -201,9 +209,11 @@ public class Authenticator {
 	}
 	
 	/**
-	 * 
-	 * @return
-	 * @throws IOException
+	 * here the you will type your username and password 
+	 * the program will validate them, if they exist in the csv
+	 * you will sign in sucessfully, otherwise you wont be able to sign in 
+	 * @return returns true/false depending on your inputs
+	 * @throws IOException handles any input and output problems
 	 */
 	public static boolean isUserValid() throws IOException
 	{
