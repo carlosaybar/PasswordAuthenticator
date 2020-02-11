@@ -230,17 +230,22 @@ public class Authenticator {
 		
 		boolean isValid = false;
 		BufferedReader br = new BufferedReader(new FileReader(credentialsPath));
-		String line;
+		String line = null;
 		String found = null;
 		while(br.readLine() != null)
 		{
 
 			line = br.readLine();//saves each line of the csv into the String line
+			if (line == null) //handles nullPointersException
+			{
+			    break;
+			}
 			String [] values = line.split(","); 
 
 			
 			for(int i = 0; i < values.length; i++)
 			{
+
 				if(values[i].contentEquals(inputUsername)) //if the username maches the value in the csv isValid will be true
 				{
 					found = line;
