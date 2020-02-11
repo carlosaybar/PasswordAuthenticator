@@ -136,35 +136,47 @@ public class Authenticator {
 		System.out.println("type the user to be removed: ");
 		searchUser = input.nextLine();
 
-
+		/*
+		 * in this chunck of code I created another arraylist
+		 * called users, where I will store the data from the csv
+		 * this will make it easier to search for a specific user to be
+		 * delted
+		 */
+		ArrayList<String>users = new ArrayList<String>();
 		BufferedReader br = new BufferedReader(new FileReader(credentialsPath));
 		String line;
-
 		FileWriter fileWriter = new FileWriter(credentialsPath , true);
 		Scanner file = new Scanner (new File(credentialsPath));
 		int loadUsers = 0;
 		while(file.hasNextLine())
 		{
-			credentials.add(file.nextLine());
-			loadUsers++;
+			users.add(file.nextLine());
 		}
 
 		file.close(); // closes the file
 
 
-		ArrayList<String>users = new ArrayList<String>();
-		users.addAll(credentials);
 		System.out.println("this will removed");
-		for(int z = 0; z < users.size(); z++)
+		for(int z = 0; z < users.size() ; z++)
 		{
 			line = users.get(z);
-			String [] values = line.split(",");
-			if(values[z].contentEquals(searchUser))
+
+			//String [] values = users.get(z).split(",");
+			String [] values = line.split(","); //breaks the line into ID, username, and passwordhash and stores it in the values array
+			if(values[z].contentEquals(searchUser)) //checks to see if the username the user typed is contained in the new array
 			{
 				System.out.println(users.get(z));
-				users.remove(z);
+				users.remove(z); //if the username is contained in the array, the line where the for loop is at in the arraylist will be deleted
+				System.out.println(users.get(z));
 			}
-
+			else
+			{
+				z++;
+				break;
+			}
+			//System.out.println(users.get(z));
+			//z++;
+			//break;
 		}
 		System.out.println("this is after removing");
 		for(int x = 0; x < users.size(); x++)
@@ -195,11 +207,13 @@ public class Authenticator {
 	 */
 	public static boolean isUserValid() throws IOException
 	{
+		//promppts the user to enter his/her username
 		String inputUsername;
 		Scanner input = new Scanner(System.in);
 		System.out.println("type the username: ");
 		inputUsername = input.nextLine();
 		
+		//prompts the user to enter a password
 		String inputPassword;
 		System.out.println("type your password: ");
 		inputPassword = input.nextLine();
@@ -207,47 +221,44 @@ public class Authenticator {
 		boolean isValid = false;
 		BufferedReader br = new BufferedReader(new FileReader(credentialsPath));
 		String line;
-		
+		String found = null;
 		while(br.readLine() != null)
 		{
 
-			line = br.readLine();
-			String [] values = line.split(",");
-			String found = null;
+			line = br.readLine();//saves each line of the csv into the String line
+			String [] values = line.split(","); 
+
 			
 			for(int i = 0; i < values.length; i++)
 			{
-				if(values[i].contentEquals(inputUsername))
+				if(values[i].contentEquals(inputUsername)) //if the username maches the value in the csv isValid will be true
 				{
 					found = line;
-					//System.out.println("remove this" + found);
 					isValid = true;
-					break;
 				
 				}
-			
-				break;
+
 			}
 			
 			for(int i = 0; i < values.length; i++)
 			{
-				if(values[i].startsWith(inputPassword))
+				if(values[i].startsWith(inputPassword)) //if the password typed by the user matches the passowrd from the csv isValid will be true
 				{
 					found = line;
-					//System.out.println("remove this" + found);
 					isValid = true;
-					break;
 				}
-			
-				break;
+
 			}
 			
 
 		}
 		
-		if(!isValid)
+		
+		if(isValid) //if the credentials are valid, the user signed in without any problems
 		{
 			System.out.println("access granted");
+			System.out.println("you signied into");
+			System.out.println(found);
 		}
 		else
 		{
